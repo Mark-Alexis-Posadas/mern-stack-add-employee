@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+require("dotenv").config();
+
 const { Schema } = mongoose;
 
 const addEmployeeSchema = new Schema({
-  Id: {
+  _id: {
     type: Number,
     required,
   },
