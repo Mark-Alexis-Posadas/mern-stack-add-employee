@@ -1,10 +1,9 @@
 import express from "express";
+import { getAllEmployee } from "../controllers/employeeControllers";
 const router = express.Router();
 
 // GET all employees
-router.get("/", (req, res) => {
-  res.send({ message: "hello world" });
-});
+router.get("/", getAllEmployee);
 
 // POST new employee
 router.post("/api/employees", (req, res) => {
