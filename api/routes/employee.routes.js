@@ -1,28 +1,21 @@
 import express from "express";
-import { getAllEmployee } from "../controllers/employeeControllers";
+import {
+  createNewEmpoloyee,
+  deleteEmployee,
+  getAllEmployee,
+  getSingleEmployee,
+  updateEmployee,
+} from "../controllers/employeeControllers";
 const router = express.Router();
 
 // GET all employees
 router.get("/", getAllEmployee);
-
 // POST new employee
-router.post("/api/employees", (req, res) => {
-  res.send({ message: "create new employee" });
-});
-
+router.post("/", createNewEmpoloyee);
 // GET single employee
-router.get("/api/employees/:id", (req, res) => {
-  res.send({ message: "get single employee" });
-});
-
+router.get("/:id", getSingleEmployee);
 // DELETE single employee
-router.delete("/api/employees/:id", (req, res) => {
-  res.send({ message: "delete employee" });
-});
-
+router.delete("/:id", deleteEmployee);
 // UPDATE single employee
-router.patch("/api/employees/:id", (req, res) => {
-  res.send({ message: "update employee" });
-});
-
+router.patch("/:id", updateEmployee);
 export default router;
