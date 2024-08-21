@@ -1,7 +1,8 @@
 import React from "react";
+import AddEmployee from "./pages/AddEmployee";
 
 const App = () => {
-  return <div>App</div>;
+  return <AddEmployee />;
 };
 
 export default App;
