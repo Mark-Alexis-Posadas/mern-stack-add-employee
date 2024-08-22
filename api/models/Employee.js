@@ -1,28 +1,24 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
 const addEmployeeSchema = new Schema({
-  _id: {
-    type: Number,
-    required,
-  },
   firstName: {
     type: String,
-    required,
+    required: true,
   },
   middleName: {
     type: String,
-    required,
+    required: true,
   },
   lastName: {
     type: String,
-    required,
+    required: true,
   },
 
   email: {
     type: String,
-    required,
+    required: true,
   },
 });
 
