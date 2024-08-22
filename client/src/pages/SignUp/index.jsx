@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   firstName: "",
@@ -8,15 +9,38 @@ const initialValues = {
   password: "",
   confirmPassword: "",
 };
+
 export default function SignUp() {
   const [values, setValues] = useState(initialValues);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:4000/signup", {
+        firstName,
+        middleName,
+        lastName,
+        email,
+        password,
+        confirmPassword,
+      });
+      navigate("/login");
+      setValues("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <form className="p-3 rounded bg-slate-50 shadow-md w-[700px]">
+    <form
+      className="p-3 rounded bg-slate-50 shadow-md w-[700px]"
+      onSubmit={handleFormSubmit}
+    >
       <h1 className="font-bold text-2xl mb-3">Sign Up</h1>
       <div className="flex flex-col mb-3">
         <label htmlFor="" className="text-sm">
@@ -105,7 +129,9 @@ export default function SignUp() {
         />
       </div>
 
-      <button className="bg-blue-600 text-white rounded p-2">Sign up</button>
+      <button className="bg-blue-600 text-white rounded p-2" type="submit">
+        Sign up
+      </button>
     </form>
   );
 }
