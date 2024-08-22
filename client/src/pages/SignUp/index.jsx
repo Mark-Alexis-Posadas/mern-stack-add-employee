@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
+const initialValues = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 export default function SignUp() {
+  const [values, setValues] = useState(initialValues);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
   return (
     <form className="p-3 rounded bg-slate-50 shadow-md w-[700px]">
       <h1 className="font-bold text-2xl mb-3">Sign Up</h1>
@@ -14,6 +28,8 @@ export default function SignUp() {
           placeholder="first name"
           id="first_name"
           name="firstName"
+          value={values.firstName}
+          onChange={handleInputChange}
         />
       </div>
       <div className="flex flex-col mb-3">
@@ -26,6 +42,8 @@ export default function SignUp() {
           placeholder="middle name"
           id="middle_name"
           name="middleName"
+          value={values.middleName}
+          onChange={handleInputChange}
         />
       </div>
       <div className="flex flex-col mb-3">
@@ -38,6 +56,8 @@ export default function SignUp() {
           placeholder="last name"
           id="last_name"
           name="lastName"
+          value={values.lastName}
+          onChange={handleInputChange}
         />
       </div>
       <div className="flex flex-col mb-3">
@@ -50,6 +70,8 @@ export default function SignUp() {
           placeholder="email"
           id="email"
           name="email"
+          value={values.email}
+          onChange={handleInputChange}
         />
       </div>
       <div className="flex flex-col mb-3">
@@ -62,6 +84,9 @@ export default function SignUp() {
           placeholder="password"
           id="password"
           name="password"
+          value={values.password}
+          onChange={handleInputChange}
+          autoComplete="on"
         />
       </div>
       <div className="flex flex-col mb-3">
@@ -74,6 +99,9 @@ export default function SignUp() {
           placeholder="password"
           id="confirm_password"
           name="confirmPassword"
+          value={values.confirmPassword}
+          onChange={handleInputChange}
+          autoComplete="on"
         />
       </div>
 
