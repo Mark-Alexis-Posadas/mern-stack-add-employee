@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faPlusCircle, faSun } from "@fortawesome/free-solid-svg-icons";
 
-import TableHeader from "../components/Table";
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/Modal/ConfirmModal";
+import EmployeeItem from "../components/EmployeeItem";
 
 const initialInputValues = {
   firstName: "",
@@ -17,6 +19,22 @@ export default function AddEmployee() {
   const [isToggleModal, setIsToggleModal] = useState(false);
   const [isToggleTheme, setIstoggleTheme] = useState(false);
   const [inputValues, setInputValues] = useState(initialInputValues);
+  const [employee, setEmployee] = useState([]);
+
+  //fetch all employee
+  useEffect(() => {
+    const fetchEmployee = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/employee/get-all-employee"
+        );
+        setEmployee(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchEmployee();
+  }, []);
 
   const handleToggleTheme = () => {
     setIstoggleTheme(!isToggleTheme);
@@ -59,10 +77,31 @@ export default function AddEmployee() {
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <TableHeader />
+              <th scope="col" className="px-6 py-3">
+                id
+              </th>
+              <th scope="col" className="px-6 py-3">
+                first name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                middle name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                last name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                actions
+              </th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {employee.map((item) => (
+              <EmployeeItem item={item} key={uuidv4()} />
+            ))}
+          </tbody>
         </table>
       </div>
 
