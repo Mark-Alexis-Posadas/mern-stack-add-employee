@@ -6,9 +6,17 @@ import TableHeader from "../components/Table";
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/Modal/ConfirmModal";
 
+const initialInputValues = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  email: "",
+};
+
 export default function AddEmployee() {
   const [isToggleModal, setIsToggleModal] = useState(false);
   const [isToggleTheme, setIstoggleTheme] = useState(false);
+  const [inputValues, setInputValues] = useState(initialInputValues);
 
   const handleToggleTheme = () => {
     setIstoggleTheme(!isToggleTheme);
@@ -16,6 +24,18 @@ export default function AddEmployee() {
   };
   const handleCancelModal = () => {
     setIsToggleModal(false);
+  };
+
+  const handleInputValuesChange = (e) => {
+    const { name, value } = e.target;
+    setInputValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -46,7 +66,14 @@ export default function AddEmployee() {
         </table>
       </div>
 
-      {isToggleModal && <Modal handleCancelModal={handleCancelModal} />}
+      {isToggleModal && (
+        <Modal
+          handleCancelModal={handleCancelModal}
+          handleSubmit={handleSubmit}
+          handleInputValuesChange={handleInputValuesChange}
+          value={inputValues}
+        />
+      )}
 
       {/* <ConfirmationModal /> */}
     </div>

@@ -1,9 +1,17 @@
 import { faCircleXmark, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-export default function Modal({ handleCancelModal }) {
+export default function Modal({
+  handleCancelModal,
+  handleSubmit,
+  handleInputValuesChange,
+  value,
+}) {
   return (
     <div className="flex items-center justify-center fixed w-full top-0 left-0 min-h-screen bg-[rgba(0,0,0,0.4)]">
-      <form className="bg-white dark:bg-gray-700 p-5 md:p-10 w-[900px]">
+      <form
+        className="bg-white dark:bg-gray-700 p-5 md:p-10 w-[900px]"
+        onSubmit={handleSubmit}
+      >
         <h1 className="font-bold dark:text-white text-gray-700 text-4xl mb-2 md:mb-5">
           Add fields
         </h1>
@@ -15,6 +23,8 @@ export default function Modal({ handleCancelModal }) {
             First name
           </label>
           <input
+            value={value.firstName}
+            onChange={handleInputValuesChange}
             type="text"
             name="firstName"
             id="first_name"
@@ -26,6 +36,8 @@ export default function Modal({ handleCancelModal }) {
             Middle
           </label>
           <input
+            value={value.middleName}
+            onChange={handleInputValuesChange}
             type="text"
             name="middleName"
             id="middle_name"
@@ -38,6 +50,8 @@ export default function Modal({ handleCancelModal }) {
             last Name
           </label>
           <input
+            value={value.lastName}
+            onChange={handleInputValuesChange}
             type="text"
             name="lastName"
             id="last_name"
@@ -50,6 +64,8 @@ export default function Modal({ handleCancelModal }) {
             Email address
           </label>
           <input
+            value={value.email}
+            onChange={handleInputValuesChange}
             type="email"
             name="email"
             id="email"
