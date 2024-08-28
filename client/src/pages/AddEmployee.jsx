@@ -50,6 +50,19 @@ export default function AddEmployee() {
     setIsEditing(false);
   };
 
+  const handleDeleteEmployee = async (id) => {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/employee/delete-employee/${id}`
+      );
+      setEmployee((prevEmployees) =>
+        prevEmployees.filter((employee) => employee._id !== id)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const handleEditEmployee = () => {
     setIsToggleModal(true);
     setIsEditing(true);
@@ -65,6 +78,25 @@ export default function AddEmployee() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const employeeData = {
+        firstName: inputValues.firstName,
+        middleName: inputValues.middleName,
+        lastName: inputValues.lastName,
+        email: inputValues.email,
+      };
+
+      const response = await axios.post(
+        "http://localhost:4000/api/employee/create-new-employee",
+        employeeData
+      );
+
+      setEmployee((prevEmployee) => [...prevEmployee, response.data]);
+      setIsToggleModal(false); //close modal
+      setInputValues(initialInputValues); //clear inputs
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -89,9 +121,6 @@ export default function AddEmployee() {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                id
-              </th>
-              <th scope="col" className="px-6 py-3">
                 first name
               </th>
               <th scope="col" className="px-6 py-3">
@@ -114,6 +143,7 @@ export default function AddEmployee() {
                 item={item}
                 key={uuidv4()}
                 handleEditEmployee={handleEditEmployee}
+                handleDeleteEmployee={handleDeleteEmployee}
               />
             ))}
           </tbody>

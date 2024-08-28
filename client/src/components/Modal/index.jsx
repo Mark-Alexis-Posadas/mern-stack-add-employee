@@ -86,7 +86,7 @@ export default function Modal({
             className="text-white rounded p-2 bg-blue-600 flex items-center gap-2"
             type="submit"
           >
-            submit
+            {isEditing ? "Update" : "Submit"}
             <FontAwesomeIcon icon={faPaperPlane} />
           </button>
         </div>
