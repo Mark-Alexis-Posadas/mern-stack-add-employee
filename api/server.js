@@ -1,5 +1,8 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
 const routes = require("./routes/employee");
 const mongoose = require("mongoose");
 
@@ -7,6 +10,9 @@ const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
