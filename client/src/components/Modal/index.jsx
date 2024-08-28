@@ -5,6 +5,7 @@ export default function Modal({
   handleSubmit,
   handleInputValuesChange,
   value,
+  isEditing,
 }) {
   return (
     <div className="flex items-center justify-center fixed w-full top-0 left-0 min-h-screen bg-[rgba(0,0,0,0.4)]">
@@ -13,7 +14,7 @@ export default function Modal({
         onSubmit={handleSubmit}
       >
         <h1 className="font-bold dark:text-white text-gray-700 text-4xl mb-2 md:mb-5">
-          Add fields
+          {isEditing ? "Edit Employee" : "Add Employee"}
         </h1>
 
         {/* <p className="text-red-600 text-xl mb-5">Already exist!</p> */}

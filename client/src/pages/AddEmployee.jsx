@@ -18,6 +18,7 @@ const initialInputValues = {
 export default function AddEmployee() {
   const [isToggleModal, setIsToggleModal] = useState(false);
   const [isToggleTheme, setIstoggleTheme] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [inputValues, setInputValues] = useState(initialInputValues);
   const [employee, setEmployee] = useState([]);
 
@@ -44,6 +45,16 @@ export default function AddEmployee() {
     setIsToggleModal(false);
   };
 
+  const handleAddEmployee = () => {
+    setIsToggleModal(true);
+    setIsEditing(false);
+  };
+
+  const handleEditEmployee = () => {
+    setIsToggleModal(true);
+    setIsEditing(true);
+  };
+
   const handleInputValuesChange = (e) => {
     const { name, value } = e.target;
     setInputValues((prev) => ({
@@ -61,7 +72,7 @@ export default function AddEmployee() {
       <div className="flex items-center justify-between">
         <button
           className="dark:text-gray-400 p-2 rounded bg-blue-600 text-white dark:bg-gray-800 mb-5 flex items-center gap-3"
-          onClick={() => setIsToggleModal(true)}
+          onClick={handleAddEmployee}
         >
           Add employee
           <FontAwesomeIcon icon={faPlusCircle} />
@@ -99,7 +110,11 @@ export default function AddEmployee() {
           </thead>
           <tbody>
             {employee.map((item) => (
-              <EmployeeItem item={item} key={uuidv4()} />
+              <EmployeeItem
+                item={item}
+                key={uuidv4()}
+                handleEditEmployee={handleEditEmployee}
+              />
             ))}
           </tbody>
         </table>
@@ -111,6 +126,7 @@ export default function AddEmployee() {
           handleSubmit={handleSubmit}
           handleInputValuesChange={handleInputValuesChange}
           value={inputValues}
+          isEditing={isEditing}
         />
       )}
 
