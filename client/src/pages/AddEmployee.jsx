@@ -18,6 +18,7 @@ export default function AddEmployee() {
   const [isToggleModal, setIsToggleModal] = useState(false);
   const [isToggleTheme, setIstoggleTheme] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [inputValues, setInputValues] = useState(initialInputValues);
   const [employee, setEmployee] = useState([]);
 
@@ -42,6 +43,7 @@ export default function AddEmployee() {
   };
 
   const handleCancelModal = () => {
+    setEditIndex(null);
     setIsToggleModal(false);
     setIsEditing(false);
     setInputValues(initialInputValues);
@@ -70,7 +72,7 @@ export default function AddEmployee() {
     try {
       setIsToggleModal(true);
       setIsEditing(true);
-
+      setEditIndex(id);
       // Fetch employee data for editing
       const response = await axios.get(
         `http://localhost:4000/api/employee/get-single-employee/${id}`
@@ -122,7 +124,7 @@ export default function AddEmployee() {
 
         setEmployee((prevEmployee) => [...prevEmployee, response.data]);
       }
-
+      setEditIndex(null);
       setIsToggleModal(false); // Close modal
       setInputValues(initialInputValues); // Clear inputs
     } catch (error) {
@@ -171,6 +173,7 @@ export default function AddEmployee() {
           <tbody>
             {employee.map((item) => (
               <EmployeeItem
+                editIndex={editIndex}
                 item={item}
                 key={uuidv4()}
                 handleEditEmployee={handleEditEmployee}
