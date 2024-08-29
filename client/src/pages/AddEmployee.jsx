@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faPlusCircle, faSun } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "../components/Modal";
-import ConfirmationModal from "../components/Modal/ConfirmModal";
 import EmployeeItem from "../components/EmployeeItem";
 
 const initialInputValues = {
@@ -22,7 +21,7 @@ export default function AddEmployee() {
   const [inputValues, setInputValues] = useState(initialInputValues);
   const [employee, setEmployee] = useState([]);
 
-  //fetch all employee
+  // Fetch all employees
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
@@ -41,13 +40,17 @@ export default function AddEmployee() {
     setIstoggleTheme(!isToggleTheme);
     document.body.classList.toggle("dark");
   };
+
   const handleCancelModal = () => {
     setIsToggleModal(false);
+    setIsEditing(false);
+    setInputValues(initialInputValues);
   };
 
   const handleAddEmployee = () => {
     setIsToggleModal(true);
     setIsEditing(false);
+    setInputValues(initialInputValues);
   };
 
   const handleDeleteEmployee = async (id) => {
@@ -63,9 +66,21 @@ export default function AddEmployee() {
     }
   };
 
-  const handleEditEmployee = () => {
-    setIsToggleModal(true);
-    setIsEditing(true);
+  const handleEditEmployee = async (id) => {
+    try {
+      setIsToggleModal(true);
+      setIsEditing(true);
+
+      // Fetch employee data for editing
+      const response = await axios.get(
+        `http://localhost:4000/api/employee/get-single-employee/${id}`
+      );
+
+      // Update input values with fetched data
+      setInputValues(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleInputValuesChange = (e) => {
@@ -86,14 +101,30 @@ export default function AddEmployee() {
         email: inputValues.email,
       };
 
-      const response = await axios.post(
-        "http://localhost:4000/api/employee/create-new-employee",
-        employeeData
-      );
+      if (isEditing) {
+        // Update employee if editing
+        const response = await axios.put(
+          `http://localhost:4000/api/employee/update-employee/${inputValues._id}`,
+          employeeData
+        );
 
-      setEmployee((prevEmployee) => [...prevEmployee, response.data]);
-      setIsToggleModal(false); //close modal
-      setInputValues(initialInputValues); //clear inputs
+        setEmployee((prevEmployees) =>
+          prevEmployees.map((emp) =>
+            emp._id === response.data._id ? response.data : emp
+          )
+        );
+      } else {
+        // Add new employee
+        const response = await axios.post(
+          "http://localhost:4000/api/employee/create-new-employee",
+          employeeData
+        );
+
+        setEmployee((prevEmployee) => [...prevEmployee, response.data]);
+      }
+
+      setIsToggleModal(false); // Close modal
+      setInputValues(initialInputValues); // Clear inputs
     } catch (error) {
       console.log(error.message);
     }

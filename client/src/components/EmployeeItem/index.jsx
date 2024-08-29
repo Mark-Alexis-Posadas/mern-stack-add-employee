@@ -19,7 +19,7 @@ export default function EmployeeItem({
         <div className="flex items-center gap-3">
           <button
             className="flex items-center gap-2 font-medium text-blue-600 dark:text-blue-500"
-            onClick={handleEditEmployee}
+            onClick={() => handleEditEmployee(item._id)}
           >
             Edit
             <FontAwesomeIcon icon={faPencilAlt} />

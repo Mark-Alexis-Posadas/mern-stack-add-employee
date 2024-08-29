@@ -1,27 +1,11 @@
 const express = require("express");
-const {
-  createNewEmployee,
-  deleteEmployee,
-  getAllEmployee,
-  getSingleEmployee,
-  updateEmployee,
-} = require("../controllers/employeeControllers");
-
 const router = express.Router();
+const employeeController = require("../controllers/employeeControllers"); // adjust the path accordingly
 
-// GET all employees
-router.get("/get-all-employee", getAllEmployee);
-
-// POST new employee
-router.post("/create-new-employee", createNewEmployee);
-
-// GET single employee
-router.get("/get-single-employee/:id", getSingleEmployee);
-
-// DELETE single employee
-router.delete("/delete-employee/:id", deleteEmployee);
-
-// UPDATE single employee
-router.patch("/update-employee/:id", updateEmployee);
+router.get("/get-all-employee", employeeController.getAllEmployee);
+router.post("/create-new-employee", employeeController.createNewEmployee);
+router.get("/get-single-employee/:id", employeeController.getSingleEmployee); // Note this should be `getSingleEmployee` not `updateEmployee`
+router.put("/update-employee/:id", employeeController.updateEmployee); // Note the `put` for updating
+router.delete("/delete-employee/:id", employeeController.deleteEmployee);
 
 module.exports = router;
