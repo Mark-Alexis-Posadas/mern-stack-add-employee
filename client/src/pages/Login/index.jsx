@@ -7,7 +7,7 @@ import { useShowEye } from "../../hooks/useShowEye";
 export default function Login() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const { isToggle } = useToggle();
+  const { isToggle, handleToggle } = useToggle();
   const { isShowEye, setIsShowEye } = useShowEye();
 
   const handleSubmit = (e) => {
@@ -18,9 +18,9 @@ export default function Login() {
     setPasswordValue(e.target.value);
     if (e.target.value.length > 0) {
       setIsShowEye(true);
-      return;
+    } else {
+      setIsShowEye(false);
     }
-    setIsShowEye(false);
   };
   return (
     <form
@@ -41,11 +41,12 @@ export default function Login() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        {isShowEye && <Eye />}
+        {isShowEye && <Eye handleToggle={handleToggle} isToggle={isToggle} />}
         <label htmlFor="" className="text-sm">
           Password
         </label>
         <input
+          autoComplete="true"
           type={isToggle ? "text" : "password"}
           className="border border-slate-300 rounded p-2"
           placeholder="Type your password"
