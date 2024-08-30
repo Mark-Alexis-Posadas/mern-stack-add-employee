@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Eye from "../../components/Eye";
 import { useToggle } from "../../hooks/useToggle";
-import { useShowEye } from "../../hooks/useShowEye";
 
 const initialValues = {
   firstName: "",
@@ -18,17 +17,10 @@ export default function SignUp() {
   const [values, setValues] = useState(initialValues);
   const navigate = useNavigate();
   const { isToggle, handleToggle } = useToggle();
-  const { isShowEye, setIsShowEye } = useShowEye();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
-
-    if (e.target.value.length > 0) {
-      setIsShowEye(true);
-      return;
-    }
-    setIsShowEye(false);
   };
 
   const handleFormSubmit = async (e) => {
@@ -111,7 +103,9 @@ export default function SignUp() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        {isShowEye && <Eye handleToggle={handleToggle} isToggle={isToggle} />}
+        {values.password > 0 && (
+          <Eye handleToggle={handleToggle} isToggle={isToggle} />
+        )}
         <label htmlFor="" className="text-sm">
           Password
         </label>
@@ -127,7 +121,9 @@ export default function SignUp() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        {isShowEye && <Eye handleToggle={handleToggle} isToggle={isToggle} />}
+        {values.confirmPassword > 0 && (
+          <Eye handleToggle={handleToggle} isToggle={isToggle} />
+        )}
         <label htmlFor="" className="text-sm">
           Confirm Password
         </label>

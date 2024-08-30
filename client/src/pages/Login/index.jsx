@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useToggle } from "../../hooks/useToggle";
 import Eye from "../../components/Eye";
-import { useShowEye } from "../../hooks/useShowEye";
 
 export default function Login() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const { isToggle, handleToggle } = useToggle();
-  const { isShowEye, setIsShowEye } = useShowEye();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +14,6 @@ export default function Login() {
 
   const handlePasswordChange = (e) => {
     setPasswordValue(e.target.value);
-    if (e.target.value.length > 0) {
-      setIsShowEye(true);
-    } else {
-      setIsShowEye(false);
-    }
   };
   return (
     <form
@@ -41,7 +34,9 @@ export default function Login() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        {isShowEye && <Eye handleToggle={handleToggle} isToggle={isToggle} />}
+        {passwordValue.length > 0 && (
+          <Eye handleToggle={handleToggle} isToggle={isToggle} />
+        )}
         <label htmlFor="" className="text-sm">
           Password
         </label>
