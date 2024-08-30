@@ -1,8 +1,8 @@
+// pages/SignUp.js
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Eye from "../../components/Eye";
-import { useToggle } from "../../hooks/useToggle";
 
 const initialValues = {
   firstName: "",
@@ -15,8 +15,18 @@ const initialValues = {
 
 export default function SignUp() {
   const [values, setValues] = useState(initialValues);
+  const [isPasswordVisible, setPasswordVisibility] = useState(false);
+  const [isConfirmPasswordVisible, setConfirmPasswordVisibility] =
+    useState(false);
   const navigate = useNavigate();
-  const { isToggle, handleToggle } = useToggle();
+
+  const handlePasswordToggle = () => {
+    setPasswordVisibility((prev) => !prev);
+  };
+
+  const handleConfirmPasswordToggle = () => {
+    setConfirmPasswordVisibility((prev) => !prev);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,20 +36,14 @@ export default function SignUp() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/signup", {
-        firstName,
-        middleName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-      });
+      await axios.post("http://localhost:4000/signup", values);
       navigate("/login");
-      setValues("");
+      setValues(initialValues);
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <form
       className="p-3 rounded bg-slate-50 shadow-md w-[700px]"
@@ -47,49 +51,49 @@ export default function SignUp() {
     >
       <h1 className="font-bold text-2xl mb-3">Sign Up</h1>
       <div className="flex flex-col mb-3">
-        <label htmlFor="" className="text-sm">
+        <label htmlFor="firstName" className="text-sm">
           First Name
         </label>
         <input
           type="text"
           className="border border-slate-300 rounded p-2"
           placeholder="first name"
-          id="first_name"
+          id="firstName"
           name="firstName"
           value={values.firstName}
           onChange={handleInputChange}
         />
       </div>
       <div className="flex flex-col mb-3">
-        <label htmlFor="" className="text-sm">
+        <label htmlFor="middleName" className="text-sm">
           Middle Name
         </label>
         <input
           type="text"
           className="border border-slate-300 rounded p-2"
           placeholder="middle name"
-          id="middle_name"
+          id="middleName"
           name="middleName"
           value={values.middleName}
           onChange={handleInputChange}
         />
       </div>
       <div className="flex flex-col mb-3">
-        <label htmlFor="" className="text-sm">
+        <label htmlFor="lastName" className="text-sm">
           Last Name
         </label>
         <input
           type="text"
           className="border border-slate-300 rounded p-2"
           placeholder="last name"
-          id="last_name"
+          id="lastName"
           name="lastName"
           value={values.lastName}
           onChange={handleInputChange}
         />
       </div>
       <div className="flex flex-col mb-3">
-        <label htmlFor="" className="text-sm">
+        <label htmlFor="email" className="text-sm">
           Email
         </label>
         <input
@@ -103,14 +107,17 @@ export default function SignUp() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        {values.password > 0 && (
-          <Eye handleToggle={handleToggle} isToggle={isToggle} />
+        {values.password.length > 0 && (
+          <Eye
+            isToggle={isPasswordVisible}
+            handleToggle={handlePasswordToggle}
+          />
         )}
-        <label htmlFor="" className="text-sm">
+        <label htmlFor="password" className="text-sm">
           Password
         </label>
         <input
-          type={isToggle ? "text" : "password"}
+          type={isPasswordVisible ? "text" : "password"}
           className="border border-slate-300 rounded p-2"
           placeholder="password"
           id="password"
@@ -121,24 +128,26 @@ export default function SignUp() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        {values.confirmPassword > 0 && (
-          <Eye handleToggle={handleToggle} isToggle={isToggle} />
+        {values.confirmPassword.length > 0 && (
+          <Eye
+            isToggle={isConfirmPasswordVisible}
+            handleToggle={handleConfirmPasswordToggle}
+          />
         )}
-        <label htmlFor="" className="text-sm">
+        <label htmlFor="confirmPassword" className="text-sm">
           Confirm Password
         </label>
         <input
-          type={isToggle ? "text" : "password"}
+          type={isConfirmPasswordVisible ? "text" : "password"}
           className="border border-slate-300 rounded p-2"
-          placeholder="password"
-          id="confirm_password"
+          placeholder="confirm password"
+          id="confirmPassword"
           name="confirmPassword"
           value={values.confirmPassword}
           onChange={handleInputChange}
           autoComplete="on"
         />
       </div>
-
       <button className="bg-blue-600 text-white rounded p-2" type="submit">
         Sign up
       </button>

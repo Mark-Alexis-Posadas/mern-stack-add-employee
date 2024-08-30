@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useToggle } from "../../hooks/useToggle";
+
 import Eye from "../../components/Eye";
 
 export default function Login() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const { isToggle, handleToggle } = useToggle();
+  const [isPasswordVisibility, setPasswordVisibility] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+  const handlePasswordToggle = () => {
+    setPasswordVisibility((prev) => !prev);
   };
 
   const handlePasswordChange = (e) => {
@@ -35,14 +38,17 @@ export default function Login() {
       </div>
       <div className="flex flex-col mb-3 relative">
         {passwordValue.length > 0 && (
-          <Eye handleToggle={handleToggle} isToggle={isToggle} />
+          <Eye
+            handleToggle={handlePasswordToggle}
+            isToggle={isPasswordVisibility}
+          />
         )}
         <label htmlFor="" className="text-sm">
           Password
         </label>
         <input
           autoComplete="true"
-          type={isToggle ? "text" : "password"}
+          type={isPasswordVisibility ? "text" : "password"}
           className="border border-slate-300 rounded p-2"
           placeholder="Type your password"
           value={passwordValue}
