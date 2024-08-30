@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useToggle } from "../../hooks/useToggle";
 import Eye from "../../components/Eye";
@@ -18,7 +16,7 @@ export default function Login() {
 
   const handlePasswordChange = (e) => {
     setPasswordValue(e.target.value);
-    if (e.target.value > 0) {
+    if (e.target.value.length > 0) {
       setIsShowEye(true);
       return;
     }
