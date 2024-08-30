@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useToggle } from "../../hooks/useToggle";
+import Eye from "../../components/Eye";
+import { useShowEye } from "../../hooks/useShowEye";
 
 export default function Login() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const [showEye, setShowEye] = useState(false);
-  const { isToggle, handleToggle } = useToggle();
+  const { isToggle } = useToggle();
+  const { isShowEye, setIsShowEye } = useShowEye();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,10 +19,10 @@ export default function Login() {
   const handlePasswordChange = (e) => {
     setPasswordValue(e.target.value);
     if (e.target.value > 0) {
-      setShowEye(true);
+      setIsShowEye(true);
       return;
     }
-    setShowEye(false);
+    setIsShowEye(false);
   };
   return (
     <form
@@ -41,12 +43,7 @@ export default function Login() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        {showEye && (
-          <button className="absolute top-8 right-5" onClick={handleToggle}>
-            <FontAwesomeIcon icon={isToggle ? faEye : faEyeSlash} />
-          </button>
-        )}
-
+        {isShowEye && <Eye />}
         <label htmlFor="" className="text-sm">
           Password
         </label>

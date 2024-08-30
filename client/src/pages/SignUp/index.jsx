@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Eye from "../../components/Eye";
 import { useToggle } from "../../hooks/useToggle";
+import { useShowEye } from "../../hooks/useShowEye";
 
 const initialValues = {
   firstName: "",
@@ -16,11 +17,18 @@ const initialValues = {
 export default function SignUp() {
   const [values, setValues] = useState(initialValues);
   const navigate = useNavigate();
-  const { isToggle, handleToggle } = useToggle();
+  const isToggle = useToggle();
+  const { isShowEye, setIsShowEye } = useShowEye();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
+
+    if (e.target.value > 0) {
+      setIsShowEye(true);
+      return;
+    }
+    setIsShowEye(false);
   };
 
   const handleFormSubmit = async (e) => {
@@ -103,9 +111,7 @@ export default function SignUp() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        <button className="absolute top-8 right-5" onClick={handleToggle}>
-          <FontAwesomeIcon icon={isToggle ? faEye : faEyeSlash} />
-        </button>
+        {isShowEye && <Eye />}
         <label htmlFor="" className="text-sm">
           Password
         </label>
@@ -121,9 +127,7 @@ export default function SignUp() {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        <button className="absolute top-8 right-5" onClick={handleToggle}>
-          <FontAwesomeIcon icon={isToggle ? faEye : faEyeSlash} />
-        </button>
+        {isShowEye && <Eye />}
         <label htmlFor="" className="text-sm">
           Confirm Password
         </label>
