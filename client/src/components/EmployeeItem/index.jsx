@@ -11,8 +11,8 @@ export default function EmployeeItem({
   return (
     <tr
       className={`${
-        item._id === editIndex && "text-green-600"
-      } border-b dark:border-gray-700
+        item._id === editIndex && "text-green-600 border-2 border-green-600"
+      } dark:border-gray-700
      odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800`}
     >
       <td className="px-6 py-4 font-bold">{item.firstName}</td>
