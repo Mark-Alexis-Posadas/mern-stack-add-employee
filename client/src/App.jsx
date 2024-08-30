@@ -7,23 +7,11 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
 const App = () => {
-  const [isTogglePassword, setIsTogglePassword] = useState(false);
-  const handleTogglePassword = () => {
-    setIsTogglePassword(!isTogglePassword);
-  };
   return (
     <Routes>
       <Route element={<AuthenticationLayout />}>
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/sign-up"
-          element={
-            <SignUp
-              isTogglePassword={isTogglePassword}
-              handleTogglePassword={handleTogglePassword}
-            />
-          }
-        />
+        <Route path="/sign-up" element={<SignUp />} />
       </Route>
 
       <Route path="/" element={<EmployeeLayout />}>

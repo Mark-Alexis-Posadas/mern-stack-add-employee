@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useToggle } from "../../hooks/useToggle";
 
 const initialValues = {
   firstName: "",
@@ -12,9 +13,10 @@ const initialValues = {
   confirmPassword: "",
 };
 
-export default function SignUp({ isTogglePassword, handleTogglePassword }) {
+export default function SignUp() {
   const [values, setValues] = useState(initialValues);
   const navigate = useNavigate();
+  const { isToggle, handleToggle } = useToggle();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -101,17 +103,14 @@ export default function SignUp({ isTogglePassword, handleTogglePassword }) {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        <button
-          className="absolute top-8 right-5"
-          onClick={handleTogglePassword}
-        >
-          <FontAwesomeIcon icon={isTogglePassword ? faEye : faEyeSlash} />
+        <button className="absolute top-8 right-5" onClick={handleToggle}>
+          <FontAwesomeIcon icon={isToggle ? faEye : faEyeSlash} />
         </button>
         <label htmlFor="" className="text-sm">
           Password
         </label>
         <input
-          type={!isTogglePassword && "password"}
+          type={isToggle ? "text" : "password"}
           className="border border-slate-300 rounded p-2"
           placeholder="password"
           id="password"
@@ -122,17 +121,14 @@ export default function SignUp({ isTogglePassword, handleTogglePassword }) {
         />
       </div>
       <div className="flex flex-col mb-3 relative">
-        <button
-          className="absolute top-8 right-5"
-          onClick={handleTogglePassword}
-        >
-          <FontAwesomeIcon icon={isTogglePassword ? faEye : faEyeSlash} />
+        <button className="absolute top-8 right-5" onClick={handleToggle}>
+          <FontAwesomeIcon icon={isToggle ? faEye : faEyeSlash} />
         </button>
         <label htmlFor="" className="text-sm">
           Confirm Password
         </label>
         <input
-          type={!isTogglePassword && "password"}
+          type={isToggle ? "text" : "password"}
           className="border border-slate-300 rounded p-2"
           placeholder="password"
           id="confirm_password"
