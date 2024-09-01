@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SignUp = require("../models/SignUp");
-const Login = require("../models/Login");
 
 const signUp = async (req, res) => {
   const { firstName, middleName, lastName, email, password } = req.body;
@@ -23,4 +22,29 @@ const signUp = async (req, res) => {
   }
 };
 
-module.exports = { signUp };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = SignUp.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+module.exports = { signUp, login };

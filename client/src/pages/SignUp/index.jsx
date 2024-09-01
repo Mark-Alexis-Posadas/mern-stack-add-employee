@@ -36,7 +36,6 @@ export default function SignUp() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      ``;
       await axios.post("http://localhost:4000/auth/sign-up", values);
       navigate("/login");
       setValues(initialValues);
