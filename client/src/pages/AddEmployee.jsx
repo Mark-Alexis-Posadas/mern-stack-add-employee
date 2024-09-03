@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faPlusCircle, faSun } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "../components/Modal";
+import ConfirmationModal from "../components/Modal/ConfirmModal";
 import EmployeeItem from "../components/EmployeeItem";
 
 const initialInputValues = {
@@ -18,6 +19,7 @@ export default function AddEmployee() {
   const [isToggleModal, setIsToggleModal] = useState(false);
   const [isToggleTheme, setIstoggleTheme] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [inputValues, setInputValues] = useState(initialInputValues);
   const [employee, setEmployee] = useState([]);
@@ -55,17 +57,30 @@ export default function AddEmployee() {
     setInputValues(initialInputValues);
   };
 
-  const handleDeleteEmployee = async (id) => {
+  const handleDeleteEmployee = (id) => {
+    setIsDelete(true);
+    setEditIndex(id);
+  };
+
+  const handleProceedDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:4000/api/employee/delete-employee/${id}`
+        `http://localhost:4000/api/employee/delete-employee/${editIndex}`
       );
+
       setEmployee((prevEmployees) =>
-        prevEmployees.filter((employee) => employee._id !== id)
+        prevEmployees.filter((employee) => employee._id !== editIndex)
       );
+      setEditIndex(null);
+      setIsDelete(false);
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setIsDelete(false);
+    setEditIndex(null);
   };
 
   const handleEditEmployee = async (id) => {
@@ -174,6 +189,7 @@ export default function AddEmployee() {
             {employee.map((item) => (
               <EmployeeItem
                 editIndex={editIndex}
+                isDelete={isDelete}
                 item={item}
                 key={uuidv4()}
                 handleEditEmployee={handleEditEmployee}
@@ -193,8 +209,14 @@ export default function AddEmployee() {
           isEditing={isEditing}
         />
       )}
-
-      {/* <ConfirmationModal /> */}
+      {isDelete && (
+        <ConfirmationModal
+          handleProceedDelete={handleProceedDelete}
+          handleCancelDelete={handleCancelDelete}
+          setIsDelete={setIsDelete}
+          setEditIndex={setEditIndex}
+        />
+      )}
     </div>
   );
 }

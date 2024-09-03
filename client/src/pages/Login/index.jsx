@@ -54,7 +54,7 @@ export default function Login() {
           Email
         </label>
         <input
-          type="email" // Use 'email' for validation
+          type="email"
           id="email"
           className="border border-slate-300 rounded p-2"
           placeholder="Type your email"
