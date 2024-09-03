@@ -20,7 +20,7 @@ export default function AddEmployee() {
   const [isToggleTheme, setIstoggleTheme] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [inputValues, setInputValues] = useState(initialInputValues);
   const [employee, setEmployee] = useState([]);
 
@@ -45,7 +45,7 @@ export default function AddEmployee() {
   };
 
   const handleCancelModal = () => {
-    setEditIndex(null);
+    setEditId(null);
     setIsToggleModal(false);
     setIsEditing(false);
     setInputValues(initialInputValues);
@@ -59,19 +59,19 @@ export default function AddEmployee() {
 
   const handleDeleteEmployee = (id) => {
     setIsDelete(true);
-    setEditIndex(id);
+    setEditId(id);
   };
 
   const handleProceedDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:4000/api/employee/delete-employee/${editIndex}`
+        `http://localhost:4000/api/employee/delete-employee/${editId}`
       );
 
       setEmployee((prevEmployees) =>
-        prevEmployees.filter((employee) => employee._id !== editIndex)
+        prevEmployees.filter((employee) => employee._id !== editId)
       );
-      setEditIndex(null);
+      setEditId(null);
       setIsDelete(false);
     } catch (error) {
       console.log(error.message);
@@ -80,14 +80,14 @@ export default function AddEmployee() {
 
   const handleCancelDelete = () => {
     setIsDelete(false);
-    setEditIndex(null);
+    setEditId(null);
   };
 
   const handleEditEmployee = async (id) => {
     try {
       setIsToggleModal(true);
       setIsEditing(true);
-      setEditIndex(id);
+      setEditId(id);
       // Fetch employee data for editing
       const response = await axios.get(
         `http://localhost:4000/api/employee/get-single-employee/${id}`
@@ -139,7 +139,7 @@ export default function AddEmployee() {
 
         setEmployee((prevEmployee) => [...prevEmployee, response.data]);
       }
-      setEditIndex(null);
+      setEditId(null);
       setIsToggleModal(false); // Close modal
       setInputValues(initialInputValues); // Clear inputs
     } catch (error) {
@@ -188,7 +188,7 @@ export default function AddEmployee() {
           <tbody>
             {employee.map((item) => (
               <EmployeeItem
-                editIndex={editIndex}
+                editId={editId}
                 isDelete={isDelete}
                 item={item}
                 key={uuidv4()}
@@ -213,8 +213,6 @@ export default function AddEmployee() {
         <ConfirmationModal
           handleProceedDelete={handleProceedDelete}
           handleCancelDelete={handleCancelDelete}
-          setIsDelete={setIsDelete}
-          setEditIndex={setEditIndex}
         />
       )}
     </div>

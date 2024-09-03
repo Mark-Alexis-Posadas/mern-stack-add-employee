@@ -54,6 +54,7 @@ export default function Login() {
           Email
         </label>
         <input
+          autoComplete="on"
           type="email"
           id="email"
           className="border border-slate-300 rounded p-2"
@@ -73,7 +74,7 @@ export default function Login() {
           Password
         </label>
         <input
-          autoComplete="current-password"
+          autoComplete="on"
           type={isPasswordVisibility ? "text" : "password"}
           id="password"
           className="border border-slate-300 rounded p-2"
