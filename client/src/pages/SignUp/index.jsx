@@ -45,10 +45,7 @@ export default function SignUp() {
   };
 
   return (
-    <form
-      className="p-3 rounded bg-slate-50 shadow-md w-[700px]"
-      onSubmit={handleFormSubmit}
-    >
+    <form className="p-3  w-[700px]" onSubmit={handleFormSubmit}>
       <h1 className="font-bold text-2xl mb-3">Sign Up</h1>
       <div className="flex flex-col mb-3">
         <label htmlFor="firstName" className="text-sm">

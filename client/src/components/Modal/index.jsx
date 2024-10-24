@@ -6,6 +6,8 @@ export default function Modal({
   handleInputValuesChange,
   value,
   isEditing,
+  isExists,
+  inputValues,
 }) {
   return (
     <div className="flex items-center justify-center fixed w-full top-0 left-0 min-h-screen bg-[rgba(0,0,0,0.4)]">
@@ -20,6 +22,11 @@ export default function Modal({
         {/* <p className="text-red-600 text-xl mb-5">Already exist!</p> */}
 
         <div className="relative z-0 w-full mb-2 md:mb-5 group">
+          {isExists && (
+            <span className="block text-red-600">
+              {inputValues.firstName} already exists
+            </span>
+          )}
           <label className="text-gray-400 text-sm" htmlFor="first_name">
             First name
           </label>
@@ -78,6 +85,7 @@ export default function Modal({
           <button
             className="text-white rounded p-2 bg-red-600 flex items-center gap-2"
             onClick={handleCancelModal}
+            type="button"
           >
             cancel
             <FontAwesomeIcon icon={faCircleXmark} />

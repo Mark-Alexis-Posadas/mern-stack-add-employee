@@ -23,6 +23,22 @@ export default function AddEmployee() {
   const [editId, setEditId] = useState(null);
   const [inputValues, setInputValues] = useState(initialInputValues);
   const [employee, setEmployee] = useState([]);
+  const [isExists, setIsExists] = useState(false);
+
+  const handleInputValuesChange = (e) => {
+    const { name, value } = e.target;
+
+    const exists = employee.some(
+      (item) => item.firstName.toLowerCase() === value.toLowerCase()
+    );
+
+    setIsExists(exists);
+
+    setInputValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   // Fetch all employees
   useEffect(() => {
@@ -98,14 +114,6 @@ export default function AddEmployee() {
     } catch (error) {
       console.log(error.message);
     }
-  };
-
-  const handleInputValuesChange = (e) => {
-    const { name, value } = e.target;
-    setInputValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   const handleSubmit = async (e) => {
@@ -207,6 +215,8 @@ export default function AddEmployee() {
           handleInputValuesChange={handleInputValuesChange}
           value={inputValues}
           isEditing={isEditing}
+          isExists={isExists}
+          inputValues={inputValues}
         />
       )}
       {isDelete && (

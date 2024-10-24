@@ -38,7 +38,6 @@ const getSingleEmployee = async (req, res) => {
 
 const deleteEmployee = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   try {
     const employee = await Employee.findByIdAndDelete(id);
