@@ -1,4 +1,3 @@
-// pages/SignUp.js
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -45,109 +44,135 @@ export default function SignUp() {
   };
 
   return (
-    <form className="p-3  w-[700px]" onSubmit={handleFormSubmit}>
-      <h1 className="font-bold text-2xl mb-3">Sign Up</h1>
-      <div className="flex flex-col mb-3">
-        <label htmlFor="firstName" className="text-sm">
-          First Name
-        </label>
-        <input
-          type="text"
-          className="border border-slate-300 rounded p-2"
-          placeholder="first name"
-          id="firstName"
-          name="firstName"
-          value={values.firstName}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="flex flex-col mb-3">
-        <label htmlFor="middleName" className="text-sm">
-          Middle Name
-        </label>
-        <input
-          type="text"
-          className="border border-slate-300 rounded p-2"
-          placeholder="middle name"
-          id="middleName"
-          name="middleName"
-          value={values.middleName}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="flex flex-col mb-3">
-        <label htmlFor="lastName" className="text-sm">
-          Last Name
-        </label>
-        <input
-          type="text"
-          className="border border-slate-300 rounded p-2"
-          placeholder="last name"
-          id="lastName"
-          name="lastName"
-          value={values.lastName}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="flex flex-col mb-3">
-        <label htmlFor="email" className="text-sm">
-          Email
-        </label>
-        <input
-          type="text"
-          className="border border-slate-300 rounded p-2"
-          placeholder="email"
-          id="email"
-          name="email"
-          value={values.email}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="flex flex-col mb-3 relative">
-        {values.password.length > 0 && (
-          <Eye
-            isToggle={isPasswordVisible}
-            handleToggle={handlePasswordToggle}
+    <div className="min-h-screen w-full bg-gray-100 flex items-center justify-center">
+      <form
+        className="bg-white shadow-lg rounded-lg p-8 w-[400px]"
+        onSubmit={handleFormSubmit}
+      >
+        <h1 className="text-3xl font-bold mb-6 text-center">Sign Up</h1>
+        <div className="mb-4">
+          <label
+            htmlFor="firstName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            First Name
+          </label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={values.firstName}
+            onChange={handleInputChange}
+            placeholder="John"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-        )}
-        <label htmlFor="password" className="text-sm">
-          Password
-        </label>
-        <input
-          type={isPasswordVisible ? "text" : "password"}
-          className="border border-slate-300 rounded p-2"
-          placeholder="password"
-          id="password"
-          name="password"
-          value={values.password}
-          onChange={handleInputChange}
-          autoComplete="on"
-        />
-      </div>
-      <div className="flex flex-col mb-3 relative">
-        {values.confirmPassword.length > 0 && (
-          <Eye
-            isToggle={isConfirmPasswordVisible}
-            handleToggle={handleConfirmPasswordToggle}
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="middleName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Middle Name
+          </label>
+          <input
+            type="text"
+            id="middleName"
+            name="middleName"
+            value={values.middleName}
+            onChange={handleInputChange}
+            placeholder="A."
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-        )}
-        <label htmlFor="confirmPassword" className="text-sm">
-          Confirm Password
-        </label>
-        <input
-          type={isConfirmPasswordVisible ? "text" : "password"}
-          className="border border-slate-300 rounded p-2"
-          placeholder="confirm password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={values.confirmPassword}
-          onChange={handleInputChange}
-          autoComplete="on"
-        />
-      </div>
-      <button className="bg-blue-600 text-white rounded p-2" type="submit">
-        Sign up
-      </button>
-    </form>
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="lastName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Last Name
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={values.lastName}
+            onChange={handleInputChange}
+            placeholder="Doe"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={values.email}
+            onChange={handleInputChange}
+            placeholder="john.doe@example.com"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div className="mb-4 relative">
+          {values.password.length > 0 && (
+            <Eye
+              isToggle={isPasswordVisible}
+              handleToggle={handlePasswordToggle}
+            />
+          )}
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Password
+          </label>
+          <input
+            type={isPasswordVisible ? "text" : "password"}
+            id="password"
+            name="password"
+            value={values.password}
+            onChange={handleInputChange}
+            placeholder="••••••••"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            autoComplete="on"
+          />
+        </div>
+        <div className="mb-6 relative">
+          {values.confirmPassword.length > 0 && (
+            <Eye
+              isToggle={isConfirmPasswordVisible}
+              handleToggle={handleConfirmPasswordToggle}
+            />
+          )}
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Confirm Password
+          </label>
+          <input
+            type={isConfirmPasswordVisible ? "text" : "password"}
+            id="confirmPassword"
+            name="confirmPassword"
+            value={values.confirmPassword}
+            onChange={handleInputChange}
+            placeholder="••••••••"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            autoComplete="on"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-indigo-600 text-white p-2 rounded-md hover:bg-indigo-700 transition duration-200"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
   );
 }

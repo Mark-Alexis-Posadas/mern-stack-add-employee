@@ -1,4 +1,8 @@
-import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faPencilAlt,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function EmployeeItem({
@@ -27,6 +31,10 @@ export default function EmployeeItem({
           >
             Edit
             <FontAwesomeIcon icon={faPencilAlt} />
+          </button>
+          <button className="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-300">
+            View
+            <FontAwesomeIcon icon={faEye} />
           </button>
           <button
             className="flex items-center gap-2 font-medium text-red-600 dark:text-red-500"

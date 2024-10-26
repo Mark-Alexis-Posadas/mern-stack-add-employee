@@ -14,7 +14,7 @@ export default function ConfirmationModal({
           className="text-red-600 text-8xl"
         />
         <h1 className="mt-10 text-xl font-bold text-black dark:text-white">
-          Are you sure to delete {employeeToDelete} ?
+          Are you sure to delete {employeeToDelete}?
         </h1>
         <p className="my-5 text-black dark:text-white">
           You won't be able to revert this!
