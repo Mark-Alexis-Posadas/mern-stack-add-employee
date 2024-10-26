@@ -6,6 +6,7 @@ export default function EmployeeItem({
   item,
   handleEditEmployee,
   handleDeleteEmployee,
+  index,
 }) {
   return (
     <tr
@@ -29,7 +30,7 @@ export default function EmployeeItem({
           </button>
           <button
             className="flex items-center gap-2 font-medium text-red-600 dark:text-red-500"
-            onClick={() => handleDeleteEmployee(item._id)}
+            onClick={() => handleDeleteEmployee(item._id, index)}
           >
             Delete
             <FontAwesomeIcon icon={faTrashAlt} />

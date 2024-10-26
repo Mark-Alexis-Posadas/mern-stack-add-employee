@@ -16,14 +16,15 @@ const initialInputValues = {
 };
 
 export default function AddEmployee() {
+  const [employee, setEmployee] = useState([]);
+  const [inputValues, setInputValues] = useState(initialInputValues);
   const [isToggleModal, setIsToggleModal] = useState(false);
   const [isToggleTheme, setIstoggleTheme] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [inputValues, setInputValues] = useState(initialInputValues);
-  const [employee, setEmployee] = useState([]);
   const [isExists, setIsExists] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   const handleInputValuesChange = (e) => {
     const { name, value } = e.target;
@@ -73,7 +74,8 @@ export default function AddEmployee() {
     setInputValues(initialInputValues);
   };
 
-  const handleDeleteEmployee = (id) => {
+  const handleDeleteEmployee = (id, index) => {
+    setDeleteIndex(index);
     setIsDelete(true);
     setEditId(id);
   };
@@ -87,8 +89,10 @@ export default function AddEmployee() {
       setEmployee((prevEmployees) =>
         prevEmployees.filter((employee) => employee._id !== editId)
       );
-      setEditId(null);
+
       setIsDelete(false);
+      setEditId(null);
+      setDeleteIndex(null);
     } catch (error) {
       console.log(error.message);
     }
@@ -97,6 +101,7 @@ export default function AddEmployee() {
   const handleCancelDelete = () => {
     setIsDelete(false);
     setEditId(null);
+    setDeleteIndex(null);
   };
 
   const handleEditEmployee = async (id) => {
@@ -194,7 +199,7 @@ export default function AddEmployee() {
             </tr>
           </thead>
           <tbody>
-            {employee.map((item) => (
+            {employee.map((item, index) => (
               <EmployeeItem
                 editId={editId}
                 isDelete={isDelete}
@@ -202,6 +207,7 @@ export default function AddEmployee() {
                 key={uuidv4()}
                 handleEditEmployee={handleEditEmployee}
                 handleDeleteEmployee={handleDeleteEmployee}
+                index={index}
               />
             ))}
           </tbody>
@@ -223,6 +229,7 @@ export default function AddEmployee() {
         <ConfirmationModal
           handleProceedDelete={handleProceedDelete}
           handleCancelDelete={handleCancelDelete}
+          employeeToDelete={employee[deleteIndex].firstName}
         />
       )}
     </div>
