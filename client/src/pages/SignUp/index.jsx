@@ -18,7 +18,7 @@ const Schema = Yup.object().shape({
     .matches(/^[A-Za-z]*$/, "Middle name can only contain letters")
     .min(2, "Middle name must be at least 2 characters")
     .max(50, "Middle name can be at most 50 characters")
-    .notRequired(), // Middle name is optional
+    .notRequired(),
 
   lastName: Yup.string()
     .matches(/^[A-Za-z]+$/, "Last name can only contain letters")
@@ -158,7 +158,7 @@ export default function SignUp() {
                 handleToggle={handlePasswordToggle}
               />
             )}
-
+            <ErrorMessage component={Error} name="password" />
             <Field
               label="Password"
               type={isPasswordVisible ? "text" : "password"}
@@ -173,7 +173,6 @@ export default function SignUp() {
                 errors.password ? "border-red-500" : "border-gray-300 "
               } mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
             />
-            <ErrorMessage component={Error} name="password" />
           </div>
           <div className="mb-6 relative">
             {values.confirmPassword.length > 0 && (
@@ -182,7 +181,7 @@ export default function SignUp() {
                 handleToggle={handleConfirmPasswordToggle}
               />
             )}
-
+            <ErrorMessage component={Error} name="confirmPassword" />
             <Field
               label="Confirm Password"
               type={isPasswordVisible ? "text" : "password"}
@@ -197,7 +196,6 @@ export default function SignUp() {
                 errors.confirmPassword ? "border-red-500" : "border-gray-300 "
               } mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
             />
-            <ErrorMessage component={Error} name="confirmPassword" />
           </div>
           <button
             type="submit"
