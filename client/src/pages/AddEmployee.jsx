@@ -18,6 +18,7 @@ const initialInputValues = {
 
 export default function AddEmployee() {
   const [employee, setEmployee] = useState([]);
+  const [filteredEmployee, setFilteredEmployee] = useState([]);
   const [inputValues, setInputValues] = useState(initialInputValues);
   const [isToggleModal, setIsToggleModal] = useState(false);
   const [isToggleTheme, setIstoggleTheme] = useState(false);
@@ -29,12 +30,12 @@ export default function AddEmployee() {
 
   //PAGINATION
   const [isShowPagination, setIsShowPagination] = useState(true);
-  const [currentPage, setCurrentPage] = useState < number > 1;
-  const [itemsPerPage, setItemPerPage] = useState < number > 6;
-  const totalPages = Math.ceil(students.length / itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemPerPage] = useState(6);
+  const totalPages = Math.ceil(employee.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredStudents.slice(
+  const currentItems = filteredEmployee.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -75,6 +76,7 @@ export default function AddEmployee() {
           "http://localhost:4000/api/employee/get-all-employee"
         );
         setEmployee(response.data);
+        setFilteredEmployee(response.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -203,7 +205,7 @@ export default function AddEmployee() {
           />
         </button>
       </div>
-      <div className="relative overflow-x-auto shadow-md">
+      <div className="relative overflow-x-auto shadow-md p-10">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -241,7 +243,7 @@ export default function AddEmployee() {
         {isShowPagination && (
           <Pagination
             itemsPerPage={itemsPerPage}
-            students={filteredStudents}
+            employee={filteredEmployee}
             handleNext={handleNext}
             handlePrev={handlePrev}
             totalPages={totalPages}

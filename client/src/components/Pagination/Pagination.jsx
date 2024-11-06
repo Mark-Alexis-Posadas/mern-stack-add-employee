@@ -3,7 +3,7 @@ export const Pagination = ({
   handlePrev,
   totalPages,
   itemsPerPage,
-  students,
+  employee,
   currentPage,
   setCurrentPage,
 }) => {
@@ -11,7 +11,7 @@ export const Pagination = ({
     <div>
       <div className="mt-10 flex items-center justify-between">
         <span>
-          Show 1 to {itemsPerPage} of {students.length} entries
+          Show 1 to {itemsPerPage} of {employee.length} entries
         </span>
         <div className="flex items-center gap-2">
           <button
