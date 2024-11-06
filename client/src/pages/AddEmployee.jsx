@@ -7,6 +7,7 @@ import { faMoon, faPlusCircle, faSun } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/Modal/ConfirmModal";
 import EmployeeItem from "../components/EmployeeItem";
+import { Pagination } from "../components/Pagination/Pagination";
 
 const initialInputValues = {
   firstName: "",
@@ -25,6 +26,31 @@ export default function AddEmployee() {
   const [editId, setEditId] = useState(null);
   const [isExists, setIsExists] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+
+  //PAGINATION
+  const [isShowPagination, setIsShowPagination] = useState(true);
+  const [currentPage, setCurrentPage] = useState < number > 1;
+  const [itemsPerPage, setItemPerPage] = useState < number > 6;
+  const totalPages = Math.ceil(students.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredStudents.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  //handle show entries
+  const handleShowEntries = (e) => {
+    setItemPerPage(parseInt(e.target.value));
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
   const handleInputValuesChange = (e) => {
     const { name, value } = e.target;
@@ -212,6 +238,17 @@ export default function AddEmployee() {
             ))}
           </tbody>
         </table>
+        {isShowPagination && (
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            students={filteredStudents}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
+            totalPages={totalPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
       </div>
 
       {isToggleModal && (

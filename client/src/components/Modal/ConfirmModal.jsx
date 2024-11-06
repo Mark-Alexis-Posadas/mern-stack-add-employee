@@ -1,4 +1,8 @@
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle,
+  faExclamationCircle,
+  faXmarkCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ConfirmationModal({
@@ -21,15 +25,17 @@ export default function ConfirmationModal({
         </p>
         <div className="flex items-center justify-center gap-3">
           <button
-            className="text-white p-2 rounded bg-blue-500"
+            className="text-white p-2 rounded bg-blue-500 flex items-center gap-2"
             onClick={handleCancelDelete}
           >
+            <FontAwesomeIcon icon={faXmarkCircle} />
             Cancel
           </button>
           <button
-            className="text-white p-2 rounded bg-red-500"
+            className="text-white p-2 rounded bg-red-500 flex items-center gap-2"
             onClick={handleProceedDelete}
           >
+            <FontAwesomeIcon icon={faCheckCircle} />
             Proceed
           </button>
         </div>
