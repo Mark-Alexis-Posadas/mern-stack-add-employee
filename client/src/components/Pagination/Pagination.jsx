@@ -1,6 +1,8 @@
 export const Pagination = ({
   handleNext,
   handlePrev,
+  handleNextLast,
+  handlePrevLast,
   totalPages,
   itemsPerPage,
   employee,
@@ -14,6 +16,13 @@ export const Pagination = ({
           Show 1 to {itemsPerPage} of {employee.length} entries
         </span>
         <div className="flex items-center gap-2">
+          <button
+            onClick={handlePrevLast}
+            className="border border-slate-300 dark:border-gray-700 p-2 rounded h-10 mt-10"
+            disabled={currentPage === 1}
+          >
+            Prev Last
+          </button>
           <button
             onClick={handlePrev}
             className={`${
@@ -42,6 +51,13 @@ export const Pagination = ({
             disabled={currentPage === totalPages}
           >
             Next
+          </button>
+          <button
+            onClick={handleNextLast}
+            className="border border-slate-300 dark:border-gray-700 p-2 rounded h-10 mt-10"
+            disabled={currentPage === totalPages}
+          >
+            Next Last
           </button>
         </div>
       </div>

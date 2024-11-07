@@ -53,6 +53,14 @@ export default function AddEmployee() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
+  const handlePrevLast = () => {
+    setCurrentPage(1); // Go to the first page
+  };
+
+  const handleNextLast = () => {
+    setCurrentPage(totalPages); // Go to the last page
+  };
+
   const handleInputValuesChange = (e) => {
     const { name, value } = e.target;
 
@@ -248,6 +256,8 @@ export default function AddEmployee() {
             employee={filteredEmployee}
             handleNext={handleNext}
             handlePrev={handlePrev}
+            handleNextLast={handleNextLast}
+            handlePrevLast={handlePrevLast}
             totalPages={totalPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
