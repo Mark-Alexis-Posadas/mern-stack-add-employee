@@ -180,10 +180,14 @@ export default function AddEmployee() {
         );
 
         setFilteredEmployee((prevEmployee) => [...prevEmployee, response.data]);
+
+        const totalItems = filteredEmployee.length + 1;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        setCurrentPage(totalPages);
       }
       setEditId(null);
-      setIsToggleModal(false); // Close modal
-      setInputValues(initialInputValues); // Clear inputs
+      setIsToggleModal(false);
+      setInputValues(initialInputValues);
     } catch (error) {
       console.log(error.message);
     }
