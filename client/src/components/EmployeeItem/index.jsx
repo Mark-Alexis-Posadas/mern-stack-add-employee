@@ -10,6 +10,7 @@ export default function EmployeeItem({
   editId,
   handleEditEmployee,
   handleDeleteEmployee,
+  handleViewEmployee,
 }) {
   return (
     <>
@@ -34,7 +35,10 @@ export default function EmployeeItem({
                 Edit
                 <FontAwesomeIcon icon={faPencilAlt} />
               </button>
-              <button className="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-300">
+              <button
+                className="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-300"
+                onClick={() => handleViewEmployee(item._id)}
+              >
                 View
                 <FontAwesomeIcon icon={faEye} />
               </button>

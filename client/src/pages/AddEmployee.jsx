@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import ConfirmationModal from "../components/Modal/ConfirmModal";
 import EmployeeItem from "../components/EmployeeItem";
 import { Pagination } from "../components/Pagination/Pagination";
+import View from "../components/Modal/View";
 
 const initialInputValues = {
   firstName: "",
@@ -27,6 +28,8 @@ export default function AddEmployee() {
   const [editId, setEditId] = useState(null);
   const [isExists, setIsExists] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [isView, setIsView] = useState(false);
+  const [viewEmployee, setViewEmployee] = useState([]);
 
   //PAGINATION
   const [isShowPagination, setIsShowPagination] = useState(true);
@@ -110,6 +113,35 @@ export default function AddEmployee() {
     setInputValues(initialInputValues);
   };
 
+  const handleEditEmployee = async (id) => {
+    try {
+      setIsToggleModal(true);
+      setIsEditing(true);
+      setEditId(id);
+      // Fetch employee data for editing
+      const response = await axios.get(
+        `http://localhost:4000/api/employee/get-single-employee/${id}`
+      );
+
+      // Update input values with fetched data
+      setInputValues(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleViewEmployee = async (id) => {
+    try {
+      setIsView(true);
+      const response = await axios.get(
+        `http://localhost:4000/api/employee/get-single-employee/${id}`
+      );
+      setViewEmployee(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const handleDeleteEmployee = (id) => {
     const employeeToDelete = filteredEmployee.find((emp) => emp._id === id);
     setIsDelete(true);
@@ -139,23 +171,6 @@ export default function AddEmployee() {
     setIsDelete(false);
     setEditId(null);
     setDeleteIndex(null);
-  };
-
-  const handleEditEmployee = async (id) => {
-    try {
-      setIsToggleModal(true);
-      setIsEditing(true);
-      setEditId(id);
-      // Fetch employee data for editing
-      const response = await axios.get(
-        `http://localhost:4000/api/employee/get-single-employee/${id}`
-      );
-
-      // Update input values with fetched data
-      setInputValues(response.data);
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -247,6 +262,7 @@ export default function AddEmployee() {
               key={uuidv4()}
               handleEditEmployee={handleEditEmployee}
               handleDeleteEmployee={handleDeleteEmployee}
+              handleViewEmployee={handleViewEmployee}
             />
           </tbody>
         </table>
@@ -283,6 +299,7 @@ export default function AddEmployee() {
           employeeToDelete={filteredEmployee[deleteIndex]?.firstName}
         />
       )}
+      {isView && <View viewEmployee={viewEmployee} setIsView={setIsView} />}
     </div>
   );
 }
