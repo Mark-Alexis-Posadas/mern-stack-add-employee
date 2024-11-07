@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function EmployeeItem({
   currentItems,
   editId,
-
   handleEditEmployee,
   handleDeleteEmployee,
 }) {
@@ -16,6 +15,7 @@ export default function EmployeeItem({
     <>
       {currentItems.map((item, index) => (
         <tr
+          key={item._id}
           className={`${
             item._id === editId && "text-green-600 border-2 border-green-600"
           } dark:border-gray-700
@@ -40,7 +40,7 @@ export default function EmployeeItem({
               </button>
               <button
                 className="flex items-center gap-2 font-medium text-red-600 dark:text-red-500"
-                onClick={() => handleDeleteEmployee(item._id, index)}
+                onClick={() => handleDeleteEmployee(item._id)}
               >
                 Delete
                 <FontAwesomeIcon icon={faTrashAlt} />

@@ -41,7 +41,7 @@ export default function Modal({
         </div>
         <div className="relative z-0 w-full mb-2 md:mb-5 group">
           <label className="text-gray-400 text-sm" htmlFor="middle_name">
-            Middle
+            Middle Name
           </label>
           <input
             value={value.middleName}

@@ -10,6 +10,7 @@ export default function ConfirmationModal({
   handleCancelDelete,
   employeeToDelete,
 }) {
+  console.log(employeeToDelete);
   return (
     <div className="flex items-center justify-center fixed w-full top-0 left-0 min-h-screen bg-[rgba(0,0,0,0.4)]">
       <div className="bg-white rounded dark:bg-gray-700 p-5 w-[600px] text-center">

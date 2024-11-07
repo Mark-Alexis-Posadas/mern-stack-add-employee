@@ -102,10 +102,11 @@ export default function AddEmployee() {
     setInputValues(initialInputValues);
   };
 
-  const handleDeleteEmployee = (id, index) => {
-    setDeleteIndex(index);
+  const handleDeleteEmployee = (id) => {
+    const employeeToDelete = filteredEmployee.find((emp) => emp._id === id);
     setIsDelete(true);
     setEditId(id);
+    setDeleteIndex(filteredEmployee.indexOf(employeeToDelete)); // Track index for pagination purposes
   };
 
   const handleProceedDelete = async () => {
@@ -265,7 +266,7 @@ export default function AddEmployee() {
         <ConfirmationModal
           handleProceedDelete={handleProceedDelete}
           handleCancelDelete={handleCancelDelete}
-          employeeToDelete={employee[deleteIndex].firstName}
+          employeeToDelete={filteredEmployee[deleteIndex]?.firstName}
         />
       )}
     </div>
