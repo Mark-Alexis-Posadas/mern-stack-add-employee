@@ -133,6 +133,7 @@ export default function AddEmployee() {
   const handleViewEmployee = async (id) => {
     try {
       setIsView(true);
+      setEditId(id);
       const response = await axios.get(
         `http://localhost:4000/api/employee/get-single-employee/${id}`
       );
@@ -299,7 +300,13 @@ export default function AddEmployee() {
           employeeToDelete={filteredEmployee[deleteIndex]?.firstName}
         />
       )}
-      {isView && <View viewEmployee={viewEmployee} setIsView={setIsView} />}
+      {isView && (
+        <View
+          viewEmployee={viewEmployee}
+          setIsView={setIsView}
+          setEditId={setEditId}
+        />
+      )}
     </div>
   );
 }
