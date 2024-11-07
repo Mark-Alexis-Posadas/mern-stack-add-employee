@@ -18,7 +18,9 @@ export const Pagination = ({
         <div className="flex items-center gap-2">
           <button
             onClick={handlePrevLast}
-            className="border border-slate-300 dark:border-gray-700 p-2 rounded h-10 mt-10"
+            className={`${
+              currentPage === 1 && "bg-gray-300 cursor-not-allowed"
+            } border border-slate-300 dark:border-gray-700 p-2 rounded h-10 mt-10`}
             disabled={currentPage === 1}
           >
             Prev Last
@@ -54,7 +56,9 @@ export const Pagination = ({
           </button>
           <button
             onClick={handleNextLast}
-            className="border border-slate-300 dark:border-gray-700 p-2 rounded h-10 mt-10"
+            className={`${
+              currentPage === totalPages && "bg-gray-300 cursor-not-allowed"
+            } border border-slate-300 dark:border-gray-700 p-2 rounded h-10 mt-10`}
             disabled={currentPage === totalPages}
           >
             Next Last
