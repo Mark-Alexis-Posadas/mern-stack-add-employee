@@ -227,17 +227,14 @@ export default function AddEmployee() {
             </tr>
           </thead>
           <tbody>
-            {employee.map((item, index) => (
-              <EmployeeItem
-                editId={editId}
-                isDelete={isDelete}
-                item={item}
-                key={uuidv4()}
-                handleEditEmployee={handleEditEmployee}
-                handleDeleteEmployee={handleDeleteEmployee}
-                index={index}
-              />
-            ))}
+            <EmployeeItem
+              currentItems={currentItems}
+              editId={editId}
+              isDelete={isDelete}
+              key={uuidv4()}
+              handleEditEmployee={handleEditEmployee}
+              handleDeleteEmployee={handleDeleteEmployee}
+            />
           </tbody>
         </table>
         {isShowPagination && (

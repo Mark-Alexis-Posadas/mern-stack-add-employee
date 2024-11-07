@@ -9,24 +9,21 @@ import { Error } from "../../components/Error/Error";
 
 const Schema = Yup.object().shape({
   firstName: Yup.string()
-    .matches(/^[A-Za-z]+$/, "First name can only contain letters")
     .min(2, "First name must be at least 2 characters")
     .max(50, "First name can be at most 50 characters")
     .required("First name is required"),
 
   middleName: Yup.string()
-    .matches(/^[A-Za-z]*$/, "Middle name can only contain letters")
     .min(2, "Middle name must be at least 2 characters")
     .max(50, "Middle name can be at most 50 characters")
     .notRequired(),
 
   lastName: Yup.string()
-    .matches(/^[A-Za-z]+$/, "Last name can only contain letters")
     .min(2, "Last name must be at least 2 characters")
     .max(50, "Last name can be at most 50 characters")
     .required("Last name is required"),
 
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string().email("Invalid email").required("Email is Required"),
 
   password: Yup.string()
     .min(8, "Password is too short - should be 8 chars minimum.")
