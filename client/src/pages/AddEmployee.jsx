@@ -114,7 +114,7 @@ export default function AddEmployee() {
         `http://localhost:4000/api/employee/delete-employee/${editId}`
       );
 
-      setEmployee((prevEmployees) =>
+      setFilteredEmployee((prevEmployees) =>
         prevEmployees.filter((employee) => employee._id !== editId)
       );
 
@@ -166,7 +166,7 @@ export default function AddEmployee() {
           employeeData
         );
 
-        setEmployee((prevEmployees) =>
+        setFilteredEmployee((prevEmployees) =>
           prevEmployees.map((emp) =>
             emp._id === response.data._id ? response.data : emp
           )
@@ -178,7 +178,7 @@ export default function AddEmployee() {
           employeeData
         );
 
-        setEmployee((prevEmployee) => [...prevEmployee, response.data]);
+        setFilteredEmployee((prevEmployee) => [...prevEmployee, response.data]);
       }
       setEditId(null);
       setIsToggleModal(false); // Close modal
