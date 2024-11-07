@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faPlusCircle, faSun } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMoon,
+  faPlusCircle,
+  faSearch,
+  faSun,
+} from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/Modal/ConfirmModal";
@@ -234,7 +239,42 @@ export default function AddEmployee() {
           />
         </button>
       </div>
-      <div className="relative overflow-x-auto shadow-md p-10">
+      <div className="relative overflow-x-auto shadow-md p-10 w-[1368px] m-auto">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row justify-between gap-3 items-center my-3  dark:bg-gray-700 rounded shadow-md p-3">
+            <select
+              name="entries"
+              id="show_entries"
+              className="w-[100px] dark:bg-gray-700 bg-transparent outline-none"
+              onChange={handleShowEntries}
+            >
+              <option className="dark:bg-gray-700" value={1}>
+                1
+              </option>
+              <option className="dark:bg-gray-700" value={3}>
+                3
+              </option>
+              <option className="dark:bg-gray-700" value={6}>
+                6
+              </option>
+            </select>
+            <label htmlFor="">entries per page</label>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <form className="flex items-center">
+              <input
+                type="text"
+                className="p-2 outline-none"
+                placeholder="search item"
+              />
+              <button className="text-white rounded p-2 bg-blue-600 flex items-center gap-2">
+                Search
+                <FontAwesomeIcon icon={faSearch} />
+              </button>
+            </form>
+          </div>
+        </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
