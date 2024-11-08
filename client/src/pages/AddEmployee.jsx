@@ -36,6 +36,8 @@ export default function AddEmployee() {
   const [isView, setIsView] = useState(false);
   const [viewEmployee, setViewEmployee] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
+  const [searchItem, setSearchItem] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   //PAGINATION
   const [isShowPagination, setIsShowPagination] = useState(true);
@@ -50,8 +52,32 @@ export default function AddEmployee() {
   );
 
   //search
+
+  const handleSearchItem = (e) => {
+    setSearchItem(e.target.value);
+  };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+
+    setTimeout(() => {
+      const filteredItem = employee.filter(
+        (item) =>
+          item.firstName
+            .toLowerCase()
+            .includes(searchItem.toLocaleLowerCase()) ||
+          item.email.toLowerCase().includes(searchItem.toLocaleLowerCase())
+      );
+      setFilteredEmployee(filteredItem);
+      setIsLoading(false);
+    }, 5000);
+
+    setIsLoading(true);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearchSubmit(e);
+    }
   };
 
   //handle show entries
@@ -276,6 +302,9 @@ export default function AddEmployee() {
             >
               {isSearch && (
                 <input
+                  value={searchItem}
+                  onKeyDown={handleKeyDown}
+                  onChange={handleSearchItem}
                   type="text"
                   className="p-2 outline-none border-none bg-transparent transition"
                   placeholder="Type to search name"
@@ -316,6 +345,7 @@ export default function AddEmployee() {
           </thead>
           <tbody>
             <EmployeeItem
+              isLoading={isLoading}
               currentItems={currentItems}
               editId={editId}
               isDelete={isDelete}
