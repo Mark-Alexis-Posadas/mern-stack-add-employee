@@ -35,6 +35,7 @@ export default function AddEmployee() {
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [isView, setIsView] = useState(false);
   const [viewEmployee, setViewEmployee] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
 
   //PAGINATION
   const [isShowPagination, setIsShowPagination] = useState(true);
@@ -47,6 +48,11 @@ export default function AddEmployee() {
     indexOfFirstItem,
     indexOfLastItem
   );
+
+  //search
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+  };
 
   //handle show entries
   const handleShowEntries = (e) => {
@@ -239,9 +245,9 @@ export default function AddEmployee() {
           />
         </button>
       </div>
-      <div className="relative overflow-x-auto shadow-md p-10 w-[1368px] m-auto">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col md:flex-row justify-between gap-3 items-center my-3  dark:bg-gray-700 rounded shadow-md p-3">
+      <div className="relative overflow-x-auto shadow-custom-shadow p-10 w-[1368px] m-auto">
+        <div className="flex items-center justify-between my-3">
+          <div className="flex flex-col md:flex-row justify-between gap-3 items-centerp-3">
             <select
               name="entries"
               id="show_entries"
@@ -262,14 +268,27 @@ export default function AddEmployee() {
           </div>
 
           <div className="flex items-center gap-3">
-            <form className="flex items-center">
-              <input
-                type="text"
-                className="p-2 outline-none"
-                placeholder="search item"
-              />
-              <button className="text-white rounded p-2 bg-blue-600 flex items-center gap-2">
-                Search
+            <form
+              className={`flex items-center transition ${
+                isSearch ? "border-slate-300 border-b" : ""
+              }`}
+              onSubmit={handleSearchSubmit}
+            >
+              {isSearch && (
+                <input
+                  type="text"
+                  className="p-2 outline-none border-none bg-transparent transition"
+                  placeholder="Type to search name"
+                />
+              )}
+
+              <button
+                type="button"
+                className={`p-3 transition rounded-full ${
+                  isSearch ? "bg-none text-gray-400" : "bg-blue-600 text-white"
+                } flex items-center gap-2`}
+                onClick={() => setIsSearch(!isSearch)}
+              >
                 <FontAwesomeIcon icon={faSearch} />
               </button>
             </form>
