@@ -255,7 +255,7 @@ export default function AddEmployee() {
   };
 
   return (
-    <div className="p-5 md:p-10 bg-slate-50 dark:bg-black min-h-screen overflow-hidden">
+    <div className="p-5 md:p-10 min-h-screen overflow-hidden w-[1368px] m-auto">
       <div className="flex items-center justify-between">
         <button
           className="dark:text-gray-400 p-2 rounded bg-blue-600 text-white dark:bg-gray-800 mb-5 flex items-center gap-3"
@@ -271,7 +271,7 @@ export default function AddEmployee() {
           />
         </button>
       </div>
-      <div className="relative overflow-x-auto shadow-custom-shadow p-10 w-[1368px] m-auto">
+      <div className="relative overflow-x-auto shadow-custom-shadow p-10">
         <div className="flex items-center justify-between my-3">
           <div className="flex flex-col md:flex-row justify-between gap-3 items-centerp-3">
             <select

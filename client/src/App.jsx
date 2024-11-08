@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <>
+    <div className="bg-slate-50 dark:bg-black">
       {/* <Navbar /> */}
       <Routes>
         <Route element={<AuthenticationLayout />}>
@@ -21,7 +21,7 @@ const App = () => {
           <Route index element={<AddEmployee />} />
         </Route>
       </Routes>
-    </>
+    </div>
   );
 };
 

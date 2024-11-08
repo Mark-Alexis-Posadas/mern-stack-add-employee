@@ -19,6 +19,10 @@ export default function EmployeeItem({
         <tr>
           <td>Loading...</td>
         </tr>
+      ) : currentItems.length === 0 ? (
+        <tr>
+          <td>Not Found</td>
+        </tr>
       ) : (
         currentItems.map((item, index) => (
           <tr
